@@ -22,8 +22,8 @@
         }
         function resetAttachments() {
             for (let key in this) {
-                if (this[key].moduleType === 'attachment')
-                    this[key].reset();
+                if (this[key] && this[key].moduleType === 'attachment')
+                        this[key].reset();
             }
         }
     }
