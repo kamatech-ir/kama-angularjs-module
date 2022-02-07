@@ -79,12 +79,11 @@ export default function globalService($window, $rootScope) {
         $window.localStorage.removeItem(key);
         $window.sessionStorage.removeItem(key);
     }
-    function getAuthorizationData(key) {
-
+    function getAuthorizationData() {
         if (zone() == 1)
-            $window.localStorage.removeItem(key);
+            $window.localStorage.getItem('authorizationData');
         else
-            $window.sessionStorage.removeItem(key);
+            $window.sessionStorage.getItem('authorizationData');
     }
 
     function zone() {
