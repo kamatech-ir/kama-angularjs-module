@@ -12,10 +12,10 @@ export default function globalService($window, $rootScope) {
 
     function get(key) {
         try {
-            if (zone() == 1)
-                return changeStringToDate(JSON.parse($window.localStorage.getItem(key)));
-            else
+            if (key == "authorizationData")
                 return changeStringToDate(JSON.parse($window.sessionStorage.getItem(key)));
+            else
+                return changeStringToDate(JSON.parse($window.localStorage.getItem(key)));
 
             
             function changeStringToDate(item) {
@@ -36,26 +36,26 @@ export default function globalService($window, $rootScope) {
                 return item;
             }
         } catch (e) {
-            if (zone() == 1) {
-                if (/-date-ms$/.test($window.localStorage.getItem(key))) {
-                    return new Date(parseInt($window.localStorage.getItem(key)));
-                }
-                return $window.localStorage.getItem(key);
-            }
-            else {
+            if (key == "authorizationData") {
                 if (/-date-ms$/.test($window.sessionStorage.getItem(key))) {
                     return new Date(parseInt($window.sessionStorage.getItem(key)));
                 }
                 return $window.sessionStorage.getItem(key);
             }
+            else {
+                if (/-date-ms$/.test($window.localStorage.getItem(key))) {
+                    return new Date(parseInt($window.localStorage.getItem(key)));
+                }
+                return $window.localStorage.getItem(key);
+            }
         }
     }
     function set(key, value) {
 
-        if (zone() == 1)
-            $window.localStorage.setItem(key, JSON.stringify(changeDateToJson(value)));
-        else
+        if (key == "authorizationData")
             $window.sessionStorage.setItem(key, JSON.stringify(changeDateToJson(value)));
+        else
+            $window.localStorage.setItem(key, JSON.stringify(changeDateToJson(value)));
         
         function changeDateToJson(item) {
             if (Object.prototype.toString.call(item) === '[object Array]') {
@@ -80,10 +80,7 @@ export default function globalService($window, $rootScope) {
         $window.sessionStorage.removeItem(key);
     }
     function getAuthorizationData() {
-        if (zone() == 1)
-            $window.localStorage.getItem('authorizationData');
-        else
-            $window.sessionStorage.getItem('authorizationData');
+        return $window.sessionStorage.getItem('authorizationData');
     }
 
     function zone() {
