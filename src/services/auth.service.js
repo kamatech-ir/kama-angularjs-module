@@ -1,5 +1,5 @@
-﻿authService.$inject = ['$http', '$q', '$state', '$localStorage', '$sessionStorage', '$rootScope'];
-export default function authService($http, $q, $state, $localStorage, $sessionStorage, $rootScope) {
+﻿authService.$inject = ['$http', '$q', '$state', '$localStorage', '$sessionStorage'];
+export default function authService($http, $q, $state, $localStorage, $sessionStorage) {
     const service = {
         login: login
         , logOut: logOut
@@ -24,18 +24,10 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
         }).then(function (response) {
 
-            if ($rootScope.appInfo.type === 'intranet') {
-                if (loginData.useRefreshTokens)
-                    $localStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true }
-                else
-                    $localStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false }
-            }
-            else {
-                if (loginData.useRefreshTokens)
-                    $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true }
-                else
-                    $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false }
-            }
+            if (loginData.useRefreshTokens)
+                $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true }
+            else
+                $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false }
 
             authentication.isAuth = true;
             authentication.userName = loginData.userName;
@@ -56,11 +48,7 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         authentication.userName = "";
     }
     function fillAuthData() {
-        var authData;
-        if ($rootScope.appInfo.type === 'intranet')
-            authData = $localStorage["authorizationData"];
-        else
-            authData = $sessionStorage["authorizationData"];
+        var authData = $sessionStorage["authorizationData"];
 
         if (authData) {
             authentication.isAuth = true;
@@ -68,14 +56,9 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         }
     }
     function authHeader() {
-        var authData;
-        if ($rootScope.appInfo.type === 'intranet')
-            authData = $localStorage["authorizationData"];
-        else
-            authData = $sessionStorage["authorizationData"];
 
         let data = { key: 'Authorization', value: null }
-            , authData = authData;
+            , authData = $sessionStorage["authorizationData"];;
 
         if (authData) {
             data.value = 'Bearer ' + authData.token;
@@ -85,11 +68,7 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
             return null;
     }
     function checkToken() {
-        var authData;
-        if ($rootScope.appInfo.type === 'intranet')
-            authData = $localStorage["authorizationData"];
-        else
-            authData = $sessionStorage["authorizationData"];
+        var authData = $sessionStorage["authorizationData"];
 
         if (authData) {
             let expToken = authData.token;
@@ -114,12 +93,7 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         $state.go('auth.signin');
     }
     function getRoles() {
-        authData
-        var authData;
-        if ($rootScope.appInfo.type === 'intranet')
-            authData = $localStorage["authorizationData"];
-        else
-            authData = $sessionStorage["authorizationData"];
+        var authData = $sessionStorage["authorizationData"];
 
         let expToken = authData.token
             , tokenPayload = jwtHelper.decodeToken(expToken);
