@@ -1,5 +1,5 @@
-﻿authService.$inject = ['$http', '$q', '$state', '$localStorage', '$sessionStorage'];
-export default function authService($http, $q, $state, $localStorage, $sessionStorage) {
+﻿authService.$inject = ['$http', '$q', '$state', '$localStorage'];
+export default function authService($http, $q, $state, $localStorage) {
     const service = {
         login: login
         , logOut: logOut
@@ -23,12 +23,11 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         $http.post(serviceBase + "token", data, {
             headers: { "Content-Type": "application/x-www-form-urlencoded" }
         }).then(function (response) {
-
             if (loginData.useRefreshTokens)
-                $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true }
+                $localStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: response.data.refresh_token, useRefreshTokens: true }
             else
-                $sessionStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false }
-
+                $localStorage["authorizationData"] = { token: response.data.access_token, userName: loginData.userName, refreshToken: "", useRefreshTokens: false }
+            
             authentication.isAuth = true;
             authentication.userName = loginData.userName;
             authentication.useRefreshTokens = loginData.useRefreshTokens;
@@ -43,12 +42,11 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
     }
     function logOut() {
         $localStorage["authorizationData"] = '';
-        $sessionStorage["authorizationData"] = '';
         authentication.isAuth = false;
         authentication.userName = "";
     }
     function fillAuthData() {
-        var authData = $sessionStorage["authorizationData"];
+        var authData = $localStorage["authorizationData"];
 
         if (authData) {
             authentication.isAuth = true;
@@ -56,9 +54,8 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         }
     }
     function authHeader() {
-
         let data = { key: 'Authorization', value: null }
-            , authData = $sessionStorage["authorizationData"];;
+            , authData = $localStorage['authorizationData'];
 
         if (authData) {
             data.value = 'Bearer ' + authData.token;
@@ -68,7 +65,7 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
             return null;
     }
     function checkToken() {
-        var authData = $sessionStorage["authorizationData"];
+        let authData = $localStorage["authorizationData"];
 
         if (authData) {
             let expToken = authData.token;
@@ -93,9 +90,8 @@ export default function authService($http, $q, $state, $localStorage, $sessionSt
         $state.go('auth.signin');
     }
     function getRoles() {
-        var authData = $sessionStorage["authorizationData"];
-
-        let expToken = authData.token
+        let authData = $localStorage["authorizationData"]
+            , expToken = authData.token
             , tokenPayload = jwtHelper.decodeToken(expToken);
 
         return tokenPayload.role;
