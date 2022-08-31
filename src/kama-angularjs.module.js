@@ -29,6 +29,7 @@ import toolsService from "./services/tools.service";
 
 import trustAsHtml from "./filters/trust-as-html.filter";
 import displayMoney from "./filters/display-money.filter";
+import hashService from "./services/hash.service";
 
 require("./styles/style.scss");
 
@@ -58,6 +59,7 @@ angular
   .factory("authenticationService", authenticationService)
   .factory("enumService", enumService)
   .factory("globalService", globalService)
+  .factory("hashService", globalService)
   .factory("httpService", httpService)
   .factory("loadingService", loadingService)
   .factory("modelService", modelService)
@@ -65,4 +67,5 @@ angular
   .factory("toolsService", toolsService)
 
   .filter("trustAsHtml", trustAsHtml)
-  .filter("displayMoney", displayMoney);
+  .filter("displayMoney", displayMoney)
+  .factory("hashService", hashService);
