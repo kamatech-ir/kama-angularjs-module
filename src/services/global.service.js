@@ -5,8 +5,8 @@ export default function globalService($window, $rootScope) {
     service.get = get;
     service.set = set;
     service.remove = remove;
-    service.deploymentMode = deploymentMode;
-    service.prodoctionMode = prodoctionMode;
+    service.isProdoctionMode = isProdoctionMode;
+    service.isDeploymentMode = isDeploymentMode;
 
     return service;
 
@@ -66,10 +66,10 @@ export default function globalService($window, $rootScope) {
     function remove(key) {
         $window.localStorage.removeItem(key);
     }
-    function deploymentMode() {
-        return (angular.element('input[name="deploymentMode"]').attr('value') === '1');
-    }
-    function prodoctionMode() {
+    function isProdoctionMode() {
         return (angular.element('input[name="deploymentMode"]').attr('value') === '2');
+    }
+    function isDeploymentMode() {
+        return (angular.element('input[name="deploymentMode"]').attr('value') === '1');
     }
 }
