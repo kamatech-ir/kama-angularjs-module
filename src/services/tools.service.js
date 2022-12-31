@@ -37,8 +37,11 @@ export default function toolsService($rootScope, $location) {
     dateRangeOverlaps: dateRangeOverlaps,
     timeToMinutes: timeToMinutes,
     minutesToTime: minutesToTime,
-    print: print,
-    checkPermission: checkPermission,
+      print: print,
+      checkPermission: checkPermission,
+      saveBase64File: saveBase64File,
+      base64ToArrayBuffer: base64ToArrayBuffer,
+      saveFile: saveFile,
   };
 
   return service;
@@ -792,5 +795,33 @@ export default function toolsService($rootScope, $location) {
   }
   function mod(d, i) {
     return d - ~~(d / i) * i;
-  }
+    }
+
+    function saveBase64File(result) {
+        var array = base64ToArrayBuffer(result.Data);
+        saveFile(result.FileName, { type: "data:attachment/text" }, array);
+
+    }
+    function base64ToArrayBuffer(base64) {
+        var binaryString = window.atob(base64);
+        var binaryLen = binaryString.length;
+        var bytes = new Uint8Array(binaryLen);
+        for (var i = 0; i < binaryLen; i++) {
+            var ascii = binaryString.charCodeAt(i);
+            bytes[i] = ascii;
+        }
+        return bytes;
+    }
+    function saveFile(name, type, data) {
+        if (data != null && navigator.msSaveBlob)
+            return navigator.msSaveBlob(new Blob([data], { type: type }), name);
+        var a = $("<a style='display: none;'/>");
+        var url = window.URL.createObjectURL(new Blob([data], { type: type }));
+        a.attr("href", url);
+        a.attr("download", name);
+        $("body").append(a);
+        a[0].click();
+        window.URL.revokeObjectURL(url);
+        a.remove();
+    }
 }
