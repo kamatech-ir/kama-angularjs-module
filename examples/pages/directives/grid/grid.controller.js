@@ -9,6 +9,15 @@
 
 		example.test.grid2HeaderVisibility = true;
 		example.test.toggleHeader = toggleHeader;
+		example.test.showSelectedItemIds = () => {
+			alert(
+				example.test.grid.items.filter((item) => {
+					return item.checked
+				}).map((item) => { 
+					return item.id
+				}).toString()
+			);
+		}
 		example.test.grid = {
 			bindingObject: example.test,
 			initLoad: true,

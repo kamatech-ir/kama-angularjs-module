@@ -1,6 +1,6 @@
 {
 	"name": "kamatech-angularjs-module",
-	"version": "1.2.1",
+	"version": "1.2.2",
 	"description": "Set of AngularJS directives and services developed by Kama team",
 	"repository": {
 		"type": "git",
@@ -15,7 +15,7 @@
 	"scripts": {
 		"test": "start http://localhost:3000/examples && node examples.js",
 		"build": "webpack",
-		"start": "node_modules\\.bin\\webpack --config webpack.config.js --watch"
+		"start": "webpack --watch"
 	},
 	"dependencies": {
 		"angular": "^1.6.4",

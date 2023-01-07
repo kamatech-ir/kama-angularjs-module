@@ -49,6 +49,7 @@ export default function kamaGrid(
 		scope.obj.hideHeader = scope.obj.hideHeader || false;
 		scope.obj.hideFooter = scope.obj.hideFooter || false;
 		scope.obj.displayNameFormat = scope.obj.displayNameFormat || [];
+		scope.obj.checkedKey = scope.obj.checkedKey || 'checked';
 		scope.obj.rowClass =
 			scope.obj.rowClass ||
 			function () {
@@ -62,7 +63,7 @@ export default function kamaGrid(
 		scope.obj.initLoading = scope.obj.initLoading === false ? false : true;
 		scope.obj.update = update;
 		scope.obj.readOnly =
-			scope.obj.readOnly ||
+		scope.obj.readOnly ||
 			function () {
 				return false;
 			};

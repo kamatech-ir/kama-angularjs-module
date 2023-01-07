@@ -17,6 +17,15 @@
 							<div class="panel-body">
 								<div class="row">
 									<div class="col-xs-12">
+										<button ng-click="example.test.grid.selectable = !example.test.grid.selectable">toggle selectable</button>
+										<button 
+											ng-click="example.test.showSelectedItemIds()"
+											ng-disabled="!example.test.grid.selectable"
+										>
+											show selected ids
+										</button>
+									</div>
+									<div class="col-xs-12">
 										<kama-grid obj="example.test.grid"></kama-grid>
 									</div>
 								</div>
