@@ -2,12 +2,16 @@ const path = require('path'),
   glob = require('glob'),
   webpack = require('webpack'),
   package = require('./package.json'),
-  UglifyJSPlugin = require('uglifyjs-webpack-plugin'),
-  ExtractTextPlugin = require('extract-text-webpack-plugin'),
-  extractSass = new ExtractTextPlugin({ filename: 'kama-angularjs.min.css' }),
-  buildMode = 'prod'; // 'dev' or 'prod'
+  TerserPlugin = require('terser-webpack-plugin'),
+  MiniCssExtractPlugin = require('mini-css-extract-plugin'),
+  extractSass = new MiniCssExtractPlugin({
+    filename: '[name].min.css',
+    chunkFilename: '[id].css',
+  }),
+  buildMode = 'production'; // 'development' or 'production'
 
 module.exports = {
+  mode: buildMode,
   entry: {
     'kama-angularjs': './src/kama-angularjs.module.js',
   },
@@ -16,24 +20,23 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
   },
   plugins: getPlugins(),
+  optimization: {
+    minimize: true,
+    minimizer: [new TerserPlugin()],
+  },
   module: {
     rules: [
       {
         test: /\.scss$/,
-        use: extractSass.extract({
-          use: [
-            { loader: 'css-loader', options: { minimize: true } },
-            { loader: 'sass-loader' },
-          ],
-          fallback: 'style-loader',
-        }),
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       {
-        test: /\.js$/,
+        test: /\.m?js$/,
+        exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
-          query: {
-            presets: ['@babel/preset-env'],
+          options: {
+            presets: [['@babel/preset-env', { targets: 'defaults' }]],
           },
         },
       },
@@ -46,8 +49,15 @@ module.exports = {
           },
         ],
       },
+      {
+        test: /\.(png|eot|woff|ttf)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+          },
+        ],
+      },
     ],
-    loaders: [{ test: /\.(png|eot|woff|ttf)$/, loader: 'file-loader' }],
   },
 };
 
@@ -57,7 +67,6 @@ function getPlugins() {
   plugins.push(extractSass);
 
   if (buildMode == 'prod') {
-    plugins.push(new UglifyJSPlugin());
     plugins.push(
       new webpack.BannerPlugin(`${package.name} - version ${package.version}`)
     );
