@@ -3,8 +3,53 @@
     list-style: none;
   }
 
-  .kama-checkboxes-tree > ul {
-    padding: 0;
+  .kama-checkboxes-tree {
+    & > ul {
+      padding: 0;
+      border-top: 1px solid gray;
+      border-bottom: 1px solid gray;
+
+      & > li {
+        & > label {
+          border-bottom: 1px solid gray;
+        }
+      }
+
+      li {
+        label {
+          display: flex;
+          align-items: center;
+          margin: 0;
+          padding: 5px 0 2px;
+
+          input[type='checkbox'] {
+            margin: 0;
+          }
+
+          span {
+            margin-left: 5px;
+          }
+        }
+      }
+
+      ul {
+      }
+    }
+
+    // & > ul {
+    //   padding: 0;
+
+    //   & > li {
+    //     label {
+    //       width: 100%;
+    //       border-bottom: 1px solid gray;
+    //     }
+
+    //     & > li {
+    //       border-bottom: none !important;
+    //     }
+    //   }
+    // }
   }
 
   .checkbox-label {
