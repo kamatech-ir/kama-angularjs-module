@@ -16,6 +16,7 @@ export default function kamaCheckboxes() {
       hideHeader: '=?hideHeader',
       hideSearch: '=?hideSearch',
       selectAll: '=?selectAll',
+      striped: '=?striped'
     },
   };
 

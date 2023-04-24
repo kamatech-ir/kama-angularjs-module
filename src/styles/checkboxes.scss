@@ -4,14 +4,31 @@
   }
 
   .kama-checkboxes-tree {
+    &.striped {
+      & > ul {
+        & > li > ul {
+          & > li {
+            & > label {
+              background-color: #f2f3f5;
+            }
+          }
+        }
+      }
+    }
+
     & > ul {
       padding: 0;
-      border-top: 1px solid gray;
-      border-bottom: 1px solid gray;
 
-      & > li {
-        & > label {
-          border-bottom: 1px solid gray;
+      & > li > ul {
+        & > li {
+          &:last-child {
+            border-bottom: 1px solid gray;
+          }
+
+          & > label {
+            border-bottom: 1px solid gray;
+            border-top: 1px solid gray;
+          }
         }
       }
 
@@ -31,25 +48,7 @@
           }
         }
       }
-
-      ul {
-      }
     }
-
-    // & > ul {
-    //   padding: 0;
-
-    //   & > li {
-    //     label {
-    //       width: 100%;
-    //       border-bottom: 1px solid gray;
-    //     }
-
-    //     & > li {
-    //       border-bottom: none !important;
-    //     }
-    //   }
-    // }
   }
 
   .checkbox-label {

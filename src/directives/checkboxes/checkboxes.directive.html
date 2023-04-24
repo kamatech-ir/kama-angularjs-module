@@ -18,7 +18,7 @@
 	</div>
 
 	<!-- display tree -->
-	<div class="col-xs-12 kama-checkboxes-tree" ng-if="display === 'tree'">
+	<div class="col-xs-12 kama-checkboxes-tree" ng-class="{'striped': striped}" ng-if="display === 'tree'">
 		<ul>
 			<li ng-repeat="checkbox in list" ng-include="'checkbox-tree.html'"></li>
 		</ul>
