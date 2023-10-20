@@ -11,8 +11,8 @@ export default function authInterceptorService($q, $timeout, globalService) {
     let authorizationData = globalService.get('authorizationData');
     config.headers = config.headers || {};
 
-    config.headers['__antiForgeryFormToken'] = angular
-      .element('input[name="__antiForgeryFormToken"]')
+    config.headers['X-Antiforgery-FormToken'] = angular
+      .element('input[name="X-Antiforgery-FormToken"]')
       .attr('value');
 
     if (authorizationData && authorizationData.access_token)
