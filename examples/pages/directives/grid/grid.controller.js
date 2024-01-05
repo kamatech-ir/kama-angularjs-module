@@ -25,7 +25,7 @@
       bindingObject: example.test,
       initLoad: true,
       columns: [
-        { name: 'id', displayName: 'شناسه' },
+        { name: 'id', displayName: 'شناسه', getClass: (value, item) => { return value % 2 === 0 || item.name[0] === 'C' ? 'text-success' : '' } },
         { name: 'name', displayName: 'نام' },
         { name: 'email', displayName: 'ایمیل' },
         { name: 'phone', displayName: 'تلفن' },

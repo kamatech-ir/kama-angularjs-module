@@ -35,7 +35,7 @@
 				</td>
 				<td ng-repeat="column in obj.columns">
 					<span ng-if="!column.subItem" ng-click="column.onclick(item)">
-						<span ng-class="{'link': !!column.onclick}">{{
+						<span ng-class="{'link': !!column.onclick}" class="{{ column.getClass(cellValue(item, column), item) }}">{{
 							cellValue(item, column)
 							}}</span>
 					</span>
