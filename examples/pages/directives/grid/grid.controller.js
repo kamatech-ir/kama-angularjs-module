@@ -31,12 +31,21 @@
         { name: 'phone', displayName: 'تلفن' },
       ],
       readOnly: function () {
-        return true;
+        return false;
       },
       selectable: true,
       checkedVisibility: (item) => {
         return parseInt(item.id) % 2 === 0;
       },
+      actions: [
+        {
+          name: 'view',
+          title: 'مشاهده',
+          class: "fa fa-folder-open-o",
+          onclick: (item) => { alert(item.id); },
+          onrightclick: (item) => { alert(item.name); },
+        }
+      ],
       displayNameFormat: ['Name'],
       globalSearch: true,
       listService: universities,

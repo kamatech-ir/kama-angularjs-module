@@ -53,9 +53,15 @@
 				</td>
 				<td ng-if="obj.actions.length && !obj.readOnly()" ng-style="{ 'width': obj.actions.length * 35 + 1 }"
 					class="grid-action">
-					<i ng-repeat="action in obj.actions" ng-click="action.onclick(item)"
+					<i 
+						ng-repeat="action in obj.actions"
+						ng-click="action.onclick(item)"
+						kama-right-click="action.onrightclick(item)"
 						ng-if="obj.checkActionVisibility === undefined || obj.checkActionVisibility(action.name, item)"
-						class="{{ action.class }}" title="{{ action.title }}" aria-hidden="true"></i>
+						class="{{ action.class }}"
+						title="{{ action.title }}"
+						aria-hidden="true">
+					</i>
 				</td>
 			</tr>
 		</tbody>

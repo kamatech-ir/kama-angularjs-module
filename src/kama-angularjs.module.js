@@ -14,6 +14,7 @@ import kamaSelect from "./directives/select/select.directive";
 import kamaMultiSelect from "./directives/multi-select/multi-select.directive";
 import kamaCheckboxes from "./directives/checkboxes/checkboxes.directive";
 import kamaGridSort from "./directives/grid-sort/grid-sort.directive";
+import kamaRightClick from "./directives/right-click/right-click.directive";
 
 import alertService from "./services/alert.service";
 import authInterceptorService from "./services/auth-interceptor.service";
@@ -52,6 +53,7 @@ angular
   .directive("kamaMultiSelect", kamaMultiSelect)
   .directive("kamaCheckboxes", kamaCheckboxes)
   .directive("kamaGridSort", kamaGridSort)
+  .directive("kamaRightClick", kamaRightClick)
 
   .factory("alertService", alertService)
   .factory("authInterceptorService", authInterceptorService)
