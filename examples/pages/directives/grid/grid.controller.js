@@ -25,15 +25,23 @@
       bindingObject: example.test,
       initLoad: true,
       columns: [
-        { name: 'id', displayName: 'شناسه', getClass: (value, item) => { return value % 2 === 0 || item.name[0] === 'C' ? 'text-success' : '' } },
-        { name: 'name', displayName: 'نام' },
-        { name: 'email', displayName: 'ایمیل' },
+        { name: 'id', displayName: 'شناسه', fixed: true, fixedWidth: 70, getClass: (value, item) => { return value % 2 === 0 || item.name[0] === 'C' ? 'text-success' : '' } },
+        { name: 'name', displayName: 'نام', fixed: true, fixedWidth: 150 },
+        { name: 'email', displayName: 'ایمیل', fixed: true, fixedWidth: 200 },
         { name: 'phone', displayName: 'تلفن' },
+        { name: 'id', displayName: '2شناسه', getClass: (value, item) => { return value % 2 === 0 || item.name[0] === 'C' ? 'text-success' : '' } },
+        { name: 'name', displayName: '2نام' },
+        { name: 'email', displayName: '2ایمیل' },
+        { name: 'phone', displayName: '2تلفن' },
+        { name: 'id', displayName: '3شناسه', getClass: (value, item) => { return value % 2 === 0 || item.name[0] === 'C' ? 'text-success' : '' } },
+        { name: 'name', displayName: '3نام' },
+        { name: 'email', displayName: '3ایمیل', fixed: true, fixedWidth: 120 },
+        { name: 'phone', displayName: '3تلفن', fixed: true, fixedWidth: 100 },
       ],
       readOnly: function () {
         return false;
       },
-      selectable: true,
+      selectable: false,
       checkedVisibility: (item) => {
         return parseInt(item.id) % 2 === 0;
       },
@@ -94,7 +102,7 @@
         url: 'https://jsonplaceholder.typicode.com/users',
         data: options,
       }).then(function (result) {
-        return result.data;
+        return [result.data[0]];
       });
     }
     function toggleHeader() {

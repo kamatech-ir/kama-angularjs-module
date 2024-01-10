@@ -85,8 +85,16 @@
         th {
             white-space: nowrap;
 
+            &.fixed-column {
+                background-color: #fff;
+                position: sticky;
+                z-index: 0;
+            }
+
 			&:first-child {
 				width: 70px;
+                position: sticky;
+                right: 0;
 			}
 
             input[type=checkbox] {
@@ -99,8 +107,21 @@
             white-space: nowrap;
             vertical-align: middle !important;
 
+            &.fixed-column {
+                background-color: #eee;
+                position: sticky;
+                z-index: 0;
+            }
+
             input[type=checkbox] {
                 margin: 0;
+            }
+
+            span {
+                display: block;
+                width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
         }
     }

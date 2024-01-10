@@ -8,7 +8,6 @@ export default function kamaRightClick($parse) {
   return directive;
 
   function link(scope, element, attrs) {
-    debugger;
     if (attrs.kamaRightClick) {
         const fn = $parse(attrs.kamaRightClick);
     

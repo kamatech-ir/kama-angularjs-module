@@ -28,6 +28,10 @@ export default function kamaGrid(
     if (scope.obj.columns && scope.obj.columns.constructor !== Array)
       return console.error('KAMA GRID: columns should be an array of objects.');
 
+    scope.displayName = '';
+    scope.deleteBuffer = {};
+    scope.getFixedColumnStyle = getFixedColumnStyle;
+
     scope.obj.moduleType = 'grid';
     scope.obj.actions = scope.obj.actions || [
       {
@@ -84,8 +88,6 @@ export default function kamaGrid(
       }; // should be a function that returns an object
     scope.obj.listService; // should be a promise object
     scope.obj.deleteService; // should be a promise object
-    scope.displayName = '';
-    scope.deleteBuffer = {};
     scope.obj.previousPage = previousPage;
     scope.obj.nextPage = nextPage;
     scope.obj.pageSizeChange = pageSizeChange;
@@ -345,6 +347,58 @@ export default function kamaGrid(
       $(`#${scope.obj.modal}`).on('shown.bs.modal', () => {
         $(`#${scope.obj.modal} .modal-body`).animate({ scrollTop: 0 }, 'fast');
       });
+    }
+    function getFixedColumnStyle(index) {
+      if (index === undefined) {
+        return scope.obj.columns.filter((e) => {
+          return e.fixed;
+        }).length
+          ? { 'min-width': '70px', 'max-width': '70px', right: 0 }
+          : undefined;
+      } else {
+        if (!scope.obj.columns[index].fixed) {
+          return undefined;
+        }
+
+        let previousWidth = 0;
+        
+        if (getColumnPosition(index) === 'right') {
+          previousWidth = 70;
+          for (let i = 0; i < index; i++) {
+            const column = scope.obj.columns[i];
+
+            if (column && column.fixed) {
+              previousWidth += column.fixedWidth;
+            }
+          }
+
+          return {
+            'min-width': `${scope.obj.columns[index].fixedWidth}px`,
+            'max-width': `${scope.obj.columns[index].fixedWidth}px`,
+            right: `${previousWidth - index - 1}px`,
+          };
+        } else if (getColumnPosition(index) === 'left') {
+          for (let i = 0; i < scope.obj.columns.length - index; i++) {
+            const column = scope.obj.columns[index + i + 1];
+            if (column && column.fixed) {
+              previousWidth += column.fixedWidth;
+            }
+          }
+          return {
+            'min-width': `${scope.obj.columns[index].fixedWidth}px`,
+            'max-width': `${scope.obj.columns[index].fixedWidth}px`,
+            left: `${previousWidth - (scope.obj.columns.length - index - 1)}px`,
+          };
+        }
+
+        function getColumnPosition(columnIndex) {
+          const firstNonFixedColumnIndex = scope.obj.columns.findIndex((c) => {
+            return !c.fixed;
+          });
+
+          return columnIndex > firstNonFixedColumnIndex ? 'left' : 'right';
+        }
+      }
     }
   }
 }
