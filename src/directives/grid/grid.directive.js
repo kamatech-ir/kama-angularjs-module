@@ -92,6 +92,8 @@ export default function kamaGrid(
     scope.obj.nextPage = nextPage;
     scope.obj.pageSizeChange = pageSizeChange;
     scope.obj.changePageIndex = changePageIndex;
+    scope.obj.isAllSelected = isAllSelected;
+    scope.obj.toggleSelectAll = toggleSelectAll;
     scope.cellValue = cellValue;
 
     Object.defineProperty(scope.obj, 'total', {
@@ -361,7 +363,7 @@ export default function kamaGrid(
         }
 
         let previousWidth = 0;
-        
+
         if (getColumnPosition(index) === 'right') {
           previousWidth = 70;
           for (let i = 0; i < index; i++) {
@@ -399,6 +401,30 @@ export default function kamaGrid(
           return columnIndex > firstNonFixedColumnIndex ? 'left' : 'right';
         }
       }
+    }
+    function isAllSelected() {
+      return scope.obj.items.every((item) => {
+        if (
+          (scope.obj.checkedVisibility && scope.obj.checkedVisibility(item)) ||
+          !scope.obj.checkedVisibility
+        ) {
+          return item[scope.obj.checkedKey];
+        } else {
+          return true;
+        }
+      });
+    }
+    function toggleSelectAll() {
+      const targetValue = isAllSelected() ? false : true;
+
+      scope.obj.items.forEach((item) => {
+        if (
+          (scope.obj.checkedVisibility && scope.obj.checkedVisibility(item)) ||
+          !scope.obj.checkedVisibility
+        ) {
+          item[scope.obj.checkedKey] = targetValue;
+        }
+      });
     }
   }
 }

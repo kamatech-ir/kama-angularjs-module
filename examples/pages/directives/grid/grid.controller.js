@@ -102,7 +102,7 @@
         url: 'https://jsonplaceholder.typicode.com/users',
         data: options,
       }).then(function (result) {
-        return [result.data[0]];
+        return result.data;
       });
     }
     function toggleHeader() {
