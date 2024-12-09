@@ -8,7 +8,9 @@
 	<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
 		<thead>
 			<tr>
-				<th ng-if="obj.selectable"></th>
+				<th ng-if="obj.selectable">
+					<input type="checkbox" ng-click="obj.toggleSelectAll()" ng-checked="obj.isAllSelected()" />
+				</th>
 				<th ng-style="getFixedColumnStyle()" ng-class="{'fixed-column': !!getFixedColumnStyle($index)}">ردیف</th>
 				<th ng-repeat="column in obj.columns" st-sort="column.name" ng-style="getFixedColumnStyle($index)" ng-class="{'fixed-column': !!getFixedColumnStyle($index)}">
 					{{ column.displayName }}
