@@ -23,6 +23,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
     scope.obj.displayName = scope.obj.displayName || ['Name'];
     scope.obj.uniqueId = scope.obj.uniqueId || 'ID';
     scope.obj.minimumInputLength = scope.obj.minimumInputLength || 3;
+    scope.obj.preventCloseOnSelect = scope.obj.preventCloseOnSelect || false;
     scope.obj.options =
       scope.obj.options ||
       function () {
@@ -36,6 +37,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
 
     if (scope.obj.lazy) {
       let lazySelect = $(element.find('.kama-lazyselect')[0]).select2({
+        closeOnSelect: scope.obj.preventCloseOnSelect ? false : true,
         allowClear: true,
         dir: 'rtl',
         placeholder: 'یک مورد را انتخاب کنید',
@@ -91,6 +93,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
         addDisplayName(scope.obj.items);
       if (scope.obj.select2) {
         $(element.find('.kama-select')[0]).select2({
+          closeOnSelect: scope.obj.preventCloseOnSelect ? false : true,
           allowClear: true,
           dir: 'rtl',
           placeholder: 'یک مورد را انتخاب کنید',
@@ -255,6 +258,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
     }
     function loadingSelect2() {
       element.find('.kama-select').select2({
+        closeOnSelect: scope.obj.preventCloseOnSelect ? false : true,
         language: 'fa',
         theme: 'bootstrap',
         placeholder: 'در حال دریافت اطلاعات ...',
@@ -262,6 +266,7 @@ export default function kamaSelect($q, toolsService, $timeout) {
     }
     function initSelect2(opts) {
       let options = {
+        closeOnSelect: scope.obj.preventCloseOnSelect ? false : true,
         language: 'fa',
         dir: 'rtl',
         theme: 'bootstrap',
