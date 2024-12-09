@@ -403,6 +403,10 @@ export default function kamaGrid(
       }
     }
     function isAllSelected() {
+      if (!Array.isArray(scope.obj.items) || !scope.obj.items?.length) {
+        return false;
+      }
+
       return scope.obj.items.every((item) => {
         if (
           (scope.obj.checkedVisibility && scope.obj.checkedVisibility(item)) ||
