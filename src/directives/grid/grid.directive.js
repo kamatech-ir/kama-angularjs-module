@@ -352,6 +352,10 @@ export default function kamaGrid(
     }
     function getFixedColumnStyle(index) {
       if (index === undefined) {
+        if (!scope.obj.columns || !scope.obj.columns.length) {
+          return undefined;
+        }
+
         return scope.obj.columns.filter((e) => {
           return e.fixed;
         }).length
