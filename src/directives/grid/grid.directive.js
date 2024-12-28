@@ -414,7 +414,7 @@ export default function kamaGrid(
         ) {
           return item[scope.obj.checkedKey];
         } else {
-          return true;
+          return false;
         }
       });
     }
