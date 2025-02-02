@@ -1,5 +1,4 @@
 const path = require('path'),
-  glob = require('glob'),
   webpack = require('webpack'),
   package = require('./package.json'),
   TerserPlugin = require('terser-webpack-plugin'),
@@ -45,7 +44,9 @@ module.exports = {
         use: [
           {
             loader: 'html-loader',
-            options: buildMode === 'prod' ? { minimize: true } : {},
+            options: {
+              esModule: false,
+            },
           },
         ],
       },
@@ -66,7 +67,7 @@ function getPlugins() {
 
   plugins.push(extractSass);
 
-  if (buildMode == 'prod') {
+  if (buildMode == 'production') {
     plugins.push(
       new webpack.BannerPlugin(`${package.name} - version ${package.version}`)
     );

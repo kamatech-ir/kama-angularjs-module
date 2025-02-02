@@ -4,4 +4,4 @@ const path = require('path')
 	, staticPath = path.join(__dirname, '/');
 
 app.use(express.static(staticPath));
-app.listen(3000, function() { console.log('listening') });
+app.listen(3000, function() { console.log('listening on http://localhost:3000/examples/') });
