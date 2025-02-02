@@ -36,7 +36,7 @@
         example.select3 = {
             bindingObject: example.test3
             , parameters: { ID: 'TestID', Name: 'TestName' }
-            , displayName: ['Name', 'ID']
+            , displayName: ['name', 'id']
             , lazy: true
             , listService: universities
             , getService: getOrgan
@@ -46,9 +46,9 @@
         function universities(options) {
             return $http({
                 method: 'GET'
-                , url: 'http://www.mocky.io/v2/5bc703bf320000cf290b05b0'
+                , url: 'https://jsonplaceholder.typicode.com/users'
             }).then(function (result) {
-                return result.data.Data;
+                return result.data;
             }).catch(function (error) {
                 return error;
             });
