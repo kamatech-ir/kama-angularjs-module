@@ -1,6 +1,6 @@
 {
 	"name": "kamatech-angularjs-module",
-	"version": "1.3.11",
+	"version": "1.3.12",
 	"description": "Set of AngularJS directives and services developed by Kama team",
 	"repository": {
 		"type": "git",
@@ -46,5 +46,6 @@
 		"uglifyjs-webpack-plugin": "^2.2.0",
 		"webpack": "^5.97.1",
 		"webpack-cli": "^6.0.1"
-	}
+	},
+	"packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }

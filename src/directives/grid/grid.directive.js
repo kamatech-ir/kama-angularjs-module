@@ -136,7 +136,7 @@ export default function kamaGrid(
               .catch((error) => {
                 loadingService.hide();
                 alertService.error(error || 'خطا در دریافت اطلاعات');
-                return $.reject();
+                return $q.reject(error);
               });
           }
         })
