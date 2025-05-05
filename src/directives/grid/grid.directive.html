@@ -5,7 +5,7 @@
 </div>
 <div class="table-responsive kama-grid-table" ng-style="{'margin-left': obj.readOnly() || obj.actions.length * 35}"
 	ng-if="!obj.hideTable">
-	<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped">
+	<table st-table="displayedItems" st-safe-src="obj.items" class="table table-bordered table-striped" ng-class="{'has-actions': obj.actions.length && !obj.readOnly()}">
 		<thead>
 			<tr>
 				<th ng-if="obj.selectable">
