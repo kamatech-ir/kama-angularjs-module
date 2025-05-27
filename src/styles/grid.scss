@@ -52,6 +52,58 @@
 .kama-total {
     padding-right: 10px;
     text-align: right;
+
+    .ng-leave {
+        display: none !important;
+    }
+
+    .loading-total {
+        position: relative;
+        top: -1px;
+        margin-right: 2px;
+        font-size: 12px;
+
+        opacity: 0.5;
+        animation: fadeFlash 1.2s linear infinite;
+
+        & > span {
+            display: inline-block;
+
+            &:nth-of-type(1) {
+                margin-right: 2px;
+                animation: moveVertical 1.2s linear 0s infinite;
+            }
+            &:nth-of-type(2) {
+                animation: moveVertical 1.2s linear 0.4s infinite;
+            }
+            &:nth-of-type(3) {
+                animation: moveVertical 1.2s linear 0.7s infinite;
+            }
+        }
+    }
+}
+
+@keyframes fadeFlash {
+    0% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0.5;
+    }
+}
+@keyframes moveVertical {
+    0% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-3px);
+    }
+    100% {
+        transform: translateY(0);
+    }
 }
 
 .kama-pagination {

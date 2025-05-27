@@ -82,8 +82,10 @@
 	</div>
 	<div class="col-xs-12 col-sm-8">
 		<div class="row">
-			<div class="col-xs-6 col-sm-pull-6 kama-total">
-				تعداد کل: {{ obj.loadingTotal ? "..." : obj.total }}
+			<div class="col-xs-6 col-sm-pull-6 kama-total" ng-switch="obj.loadingTotal">
+				تعداد کل: 
+				<span ng-switch-when="false">{{obj.total}}</span>
+				<span ng-switch-when="true" class="loading-total">در حال دریافت اطلاعات <span>.</span><span>.</span><span>.</span></span>
 			</div>
 			<div class="col-xs-6 kama-page-size">
 				رکورد در صفحه:
