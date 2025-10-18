@@ -4,13 +4,15 @@
   'toolsService',
   '$filter',
   '$q',
+  '$timeout'
 ];
 export default function kamaGrid(
   alertService,
   loadingService,
   toolsService,
   $filter,
-  $q
+  $q,
+  $timeout
 ) {
   let directive = {
     link: link,
@@ -31,6 +33,34 @@ export default function kamaGrid(
     scope.displayName = '';
     scope.deleteBuffer = {};
     scope.getFixedColumnStyle = getFixedColumnStyle;
+
+    scope.swapToInput = swapToInput;
+    scope.swapBack = swapBack;
+    scope.selectedSwapRow = undefined;
+    scope.selectedSwapColumnIndex = undefined;
+
+    function swapToInput(row, column, columnIndex) {
+      if (scope.obj.cellEditable) {
+        scope.selectedSwapRow = row;
+        scope.selectedSwapColumn = column;
+        scope.selectedSwapColumnIndex = columnIndex;
+        scope.selectedSwapModel = scope.cellValue(row, column);
+      }
+    }
+    function swapBack(value) {
+      if (scope.obj.onCellEdit) {
+        $timeout(()=>{
+          scope.obj.onCellEdit(value, scope.selectedSwapRow, scope.selectedSwapColumn);
+        }, 0);
+      }
+
+      scope.selectedSwapRow = undefined;
+      scope.selectedSwapColumn = undefined;
+      scope.selectedSwapColumnIndex = undefined;
+    }
+
+    scope.obj.cellEditable = scope.obj.cellEditable || false;
+    scope.obj.onCellEdit = scope.obj.onCellEdit || undefined;
 
     scope.obj.moduleType = 'grid';
     scope.obj.actions = scope.obj.actions || [

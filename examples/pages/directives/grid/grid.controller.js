@@ -22,6 +22,8 @@
       );
     };
     example.test.grid = {
+      cellEditable: true,
+      onCellEdit: (newValue) => { alert(newValue) },
       bindingObject: example.test,
       initLoad: true,
       columns: [
